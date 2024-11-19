@@ -27,7 +27,7 @@ function Add_Prestamo() {
 
     // Función para obtener los libros
     const getLibros = () => {
-        Axios.get('http://localhost:3001/get_libros')
+        Axios.get('https://repo-biblioteca-backend.vercel.app/get_libros')
             .then(response => {
                 console.log('Libros obtenidos:', response.data) // Verifica los datos
                 setListalibros(response.data)
@@ -39,7 +39,7 @@ function Add_Prestamo() {
 
     // Función para obtener los usuarios
     const getusuarios = () => {
-        Axios.get('http://localhost:3001/get_users')
+        Axios.get('https://repo-biblioteca-backend.vercel.app/get_users')
             .then(response => {
                 console.log('Usuarios obtenidos:', response.data) // Verifica los datos
                 setlistausuarios(response.data)
@@ -51,7 +51,7 @@ function Add_Prestamo() {
 
     // Función para obtener los libros
     const getPrestamos = () => {
-        Axios.get('http://localhost:3001/get_prestamos')
+        Axios.get('https://repo-biblioteca-backend.vercel.app/get_prestamos')
             .then(response => {
                 console.log('prestamos obtenidos:', response.data) // Verifica los datos
                 setlistaprestamos(response.data)
@@ -77,7 +77,7 @@ function Add_Prestamo() {
             })
         } else {
             console.log({ usuario, libro, estado, fechaprestamo, fechadevolucion })
-            Axios.post('http://localhost:3001/add_prestamo', {
+            Axios.post('https://repo-biblioteca-backend.vercel.app/add_prestamo', {
                 usuario,
                 libro,
                 estado,

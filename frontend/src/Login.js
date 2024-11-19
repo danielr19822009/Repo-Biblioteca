@@ -22,7 +22,7 @@ function Login() {
                 timer: 4000,
             });
         } else {
-            axios.post("http://localhost:3001/login_admon", { email, password })
+            axios.post("https://repo-biblioteca-backend.vercel.app/login_admon", { email, password })
                 .then(() => {
                     Swal.fire({
                         title: "Good job!",
@@ -46,7 +46,7 @@ function Login() {
 
     // Función para obtener los usuarios administradores
     const getAdmin = () => {
-        axios.get('http://localhost:3001/get_admin')
+        axios.get('https://repo-biblioteca-backend.vercel.app/get_admin')
             .then(response => {
                 console.log('Admins obtenidos:', response.data); // Verifica los datos
                 setlistadmin(response.data);

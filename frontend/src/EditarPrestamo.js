@@ -22,7 +22,7 @@ function Editar_Prestamos() {
 
     // Fetch Prestamos
     const getPrestamos = () => {
-        Axios.get("http://localhost:3001/get_prestamos")
+        Axios.get("https://repo-biblioteca-backend.vercel.app/get_prestamos")
 
 
             .then((response) => {
@@ -36,7 +36,7 @@ function Editar_Prestamos() {
 
     // Fetch Usuarios
     const getUsuarios = () => {
-        Axios.get("http://localhost:3001/get_users")
+        Axios.get("https://repo-biblioteca-backend.vercel.app/get_users")
             .then((response) => {
                 console.log("Usuarios obtenidos:", response.data);
                 setListaUsuarios(response.data);
@@ -48,7 +48,7 @@ function Editar_Prestamos() {
 
     // Fetch Libros (if needed)
     const getLibros = () => {
-        Axios.get("http://localhost:3001/get_libros")
+        Axios.get("https://repo-biblioteca-backend.vercel.app/get_libros")
             .then((response) => {
                 console.log("Libros obtenidos:", response.data);
                 setListaLibros(response.data);
@@ -70,7 +70,7 @@ const deletePrestamo = (idprestamo) => {
         confirmButtonText: "Yes, delete it!"
     }).then((result) => {
         if (result.isConfirmed) {
-            Axios.delete(`http://localhost:3001/delete_prestamo/${idprestamo}`)
+            Axios.delete(`https://repo-biblioteca-backend.vercel.app/delete_prestamo/${idprestamo}`)
                 .then(() => {
                     Swal.fire({
                         title: "Deleted!",
@@ -112,7 +112,7 @@ const deletePrestamo = (idprestamo) => {
             return;
         }
 
-        Axios.put("http://localhost:3001/update_prestamo", {
+        Axios.put("https://repo-biblioteca-backend.vercel.app/update_prestamo", {
             Prestamoid: idprestamo,
             usuario,
             libro,

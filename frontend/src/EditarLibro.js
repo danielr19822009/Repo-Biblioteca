@@ -29,7 +29,7 @@ const Edit_Libro = () => {
 
     // Función para obtener los libros
     const getLibros = () => {
-        Axios.get("http://localhost:3001/get_libros")
+        Axios.get("https://repo-biblioteca-backend.vercel.app/get_libros")
             .then((response) => {
                 console.log("Libros obtenidos:", response.data); // Verifica los datos
                 setListalibros(response.data);
@@ -54,7 +54,7 @@ const Edit_Libro = () => {
             return;
         }
 
-        Axios.put("http://localhost:3001/update_libro", {
+        Axios.put("https://repo-biblioteca-backend.vercel.app/update_libro", {
             libroid,
             nombrelibro,
             cantidad,
@@ -97,7 +97,7 @@ const Edit_Libro = () => {
             confirmButtonText: "Si, Eliminar !"
         }).then((result) => {
             if (result.isConfirmed) {
-                Axios.delete(`http://localhost:3001/delete_libros/${libroId}`)
+                Axios.delete(`https://repo-biblioteca-backend.vercel.app/delete_libros/${libroId}`)
                     .then(() => {
                         Swal.fire({
                             title: "Deleted!",

@@ -23,7 +23,7 @@ const Add_User = () => {
 
     // Function to get users
     const getUsers = () => {
-        Axios.get("http://localhost:3001/get_users")
+        Axios.get("https://repo-biblioteca-backend.vercel.app/get_users")
             .then((response) => {
                 setUsersList(response.data);
             })
@@ -53,7 +53,7 @@ const Add_User = () => {
             });
         } else {
 
-            Axios.post("http://localhost:3001/add_users", {
+            Axios.post("https://repo-biblioteca-backend.vercel.app/add_users", {
                 cedula,
                 nombre,
                 direccion,

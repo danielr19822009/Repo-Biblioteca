@@ -25,7 +25,7 @@ const Editar_Editorial = () => {
 
     // Función para obtener las editoriales y autores
     const getEditoriales = () => {
-        Axios.get("http://localhost:3001/get_editoriales")
+        Axios.get("https://repo-biblioteca-backend.vercel.app/get_editoriales")
             .then((response) => {
                 setEditoriales(response.data);
             })
@@ -51,7 +51,7 @@ const Editar_Editorial = () => {
         }
         console.log(nombreEditorial + direccionEditorial)
 
-        Axios.put("http://localhost:3001/update_editoriales", {
+        Axios.put("https://repo-biblioteca-backend.vercel.app/update_editoriales", {
             editorialId: editorialid,
             nombreEditorial,
             direccionEditorial,
@@ -97,7 +97,7 @@ const Editar_Editorial = () => {
             confirmButtonText: "Si, Eliminar !"
         }).then((result) => {
             if (result.isConfirmed) {
-                Axios.delete(`http://localhost:3001/delete_editoriales/${editorialId}`)
+                Axios.delete(`https://repo-biblioteca-backend.vercel.app/delete_editoriales/${editorialId}`)
                     .then(() => {
                         Swal.fire({
                             title: "Deleted!",
