@@ -1,0 +1,36 @@
+#opciones{
+  display: flex; /* Usa flexbox para alinear los elementos en una fila */
+  gap: 5px;
+}
+
+
+.card-header{
+  display: flex;
+  align-items: center;       /* Alinea verticalmente (en el eje transversal) */
+  justify-content: center;
+}
+#titablausers{
+font-size: 25px;
+
+}
+.opciones{
+padding: 0%;
+width: 100px;
+}
+
+.container{
+  width: 60%;
+}
+
+#fecha{
+  width: 60%;
+}
+
+#tituloprin{
+  text-align: center; /* Centra el título horizontalmente */
+  font-family: 'Arial', sans-serif; /* Usa una fuente amigable */
+  font-size: 2.5rem; /* Tamaño de la fuente */
+  color: #2c3e50; /* Color del texto */
+  margin: 20px 0; /* Espacio alrededor del título */
+}
+
