@@ -14,9 +14,9 @@ app.use(express.json()); // Parseo de JSON en las peticiones
 
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
-  host: 'localhost',    // Puede ser 'localhost' o un nombre de dominio si se usa remoto
-  user: 'root',         // Usuario de la base de datos
-  password: '',         // Contraseña de la base de datos
+  host: 'db-biblioteca.cdwk8g26ozev.us-east-1.rds.amazonaws.com',    // Puede ser 'localhost' o un nombre de dominio si se usa remoto
+  user: 'admin',         // Usuario de la base de datos
+  password: 'library123*',         // Contraseña de la base de datos
   database: 'bd_librarysm' // Nombre de la base de datos
 
   // Para producción, descomentar y usar variables de entorno:
