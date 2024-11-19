@@ -18,7 +18,7 @@ const db = mysql.createConnection({
   user: 'root',         // Usuario de la base de datos
   password: '',         // Contraseña de la base de datos
   database: 'bd_librarysm' // Nombre de la base de datos
-  
+
   // Para producción, descomentar y usar variables de entorno:
   // host: process.env.DB_HOST,
   // user: process.env.DB_USER,
@@ -447,7 +447,7 @@ app.delete('/delete_prestamo/:prestamoid', (req, res) => {
 });
 
 
-
-app.listen(3001, () => {
+const port = process.env.PORT || 3001;
+app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
