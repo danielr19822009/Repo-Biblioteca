@@ -4,7 +4,7 @@
 
 const express = require('express');
 const app = express();
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const port = process.env.port || 3001;
 
 const cors = require('cors');
@@ -18,28 +18,22 @@ const db = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
-////////users///////////////////////////////
-//instruccion para tomar los datos enviados desde el formulario con la ruta 
-app.post('/add_users', (req, res) => {
-    const cedula = req.body.cedula;
-    const nombre = req.body.nombre;
-    const direccion = req.body.direccion;
-    const telefono = req.body.telefono;
-
-    //query para enviar los datos a la base de datos
-    db.query('Insert into users (cedula,nombre,direccion,telefono) values(?,?,?,?)', [cedula, nombre, direccion, telefono],
-        (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send("Registro Exitoso!!!!!!!");
-            }
+// -----        users ----------------------------------------------------------------
+    app.post('/add_users', async (req, res) => { 
+        const { cedula, nombre, direccion, telefono } = req.body;  //instruccion para tomar los datos enviados desde el formulario
+        
+        try {
+            const [result] = await db.promise().query(
+                'INSERT INTO users (cedula, nombre, direccion, telefono) VALUES (?, ?, ?, ?)', 
+                [cedula, nombre, direccion, telefono]
+            );
+            res.send("Registro Exitoso!!!!!!!");
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error al insertar usuario');
         }
-    );
-})
-
-
-
+    });
+    
 
 
 app.put('/update_users', (req, res) => {
