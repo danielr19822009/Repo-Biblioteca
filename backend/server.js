@@ -2,20 +2,37 @@
 // npm instal mysql express
 //npm cors
 
+// Inicialización de la aplicación y dependencias
 const express = require('express');
 const app = express();
 const mysql = require('mysql2');
-const port = process.env.port || 3001;
-
 const cors = require('cors');
-app.use(cors());
-app.use(express.json());
 
+// Uso de middleware
+app.use(cors()); // Habilita CORS
+app.use(express.json()); // Parseo de JSON en las peticiones
+
+// Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+  host: 'localhost',    // Puede ser 'localhost' o un nombre de dominio si se usa remoto
+  user: 'root',         // Usuario de la base de datos
+  password: '',         // Contraseña de la base de datos
+  database: 'bd_librarysm' // Nombre de la base de datos
+  
+  // Para producción, descomentar y usar variables de entorno:
+  // host: process.env.DB_HOST,
+  // user: process.env.DB_USER,
+  // password: process.env.DB_PASSWORD,
+  // database: process.env.DB_NAME
+});
+
+// Conexión a la base de datos MySQL
+db.connect((err) => {
+  if (err) {
+    console.error('Error al conectar a la base de datos:', err.message);
+    return;
+  }
+  console.log('Conexión a la base de datos MySQL establecida');
 });
 
 // -----        users ----------------------------------------------------------------
