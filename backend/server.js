@@ -1,6 +1,6 @@
 // npm init
 // npm instal mysql express
-//npm cors
+// npm cors
 
 // Inicialización de la aplicación y dependencias
 const express = require('express');
@@ -19,40 +19,43 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 
-    // //   host: 'db-biblioteca.cdwk8g26ozev.us-east-1.rds.amazonaws.com',    // Puede ser 'localhost' o un nombre de dominio si se usa remoto
-// //   user: 'admin',         // Usuario de la base de datos
-// //   password: 'library123*',         // Contraseña de la base de datos
-// //   database: 'bd_librarysm' // Nombre de la base de datos
+    //   host: 'db-biblioteca.cdwk8g26ozev.us-east-1.rds.amazonaws.com',    // Puede ser 'localhost' o un nombre de dominio si se usa remoto
+    //   user: 'admin',         // Usuario de la base de datos
+    //   password: 'library123*',         // Contraseña de la base de datos
+    //   database: 'bd_librarysm' // Nombre de la base de datos
 
 });
 
-// Conexión a la base de datos MySQL
+// -----   Conexión a la base de datos MySQL
 db.connect((err) => {
-  if (err) {
-    console.error('Error al conectar a la base de datos:', err.message);
-    return;
-  }
-  console.log('Conexión a la base de datos MySQL establecida');
+    if (err) {
+        console.error('Error al conectar a la base de datos:', err.message);
+        return;
+    }
+    console.log('Conexión a la base de datos MySQL establecida');
 });
 
-// -----        users ----------------------------------------------------------------
-    app.post('/add_users', async (req, res) => { 
-        const { cedula, nombre, direccion, telefono } = req.body;  //instruccion para tomar los datos enviados desde el formulario
-        
-        try {
-            const [result] = await db.promise().query(
-                'INSERT INTO users (cedula, nombre, direccion, telefono) VALUES (?, ?, ?, ?)', 
-                [cedula, nombre, direccion, telefono]
-            );
-            res.send("Registro Exitoso!!!!!!!");
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Error al insertar usuario');
-        }
-    });
-    
+// ------- FIN CONEXION BD ---------------------------------------------------------
+
+// ------- INICIO ENDPOINT USERS ---------------------------------------------------
+// ADD USER
+app.post('/add_users', async (req, res) => {
+    const { cedula, nombre, direccion, telefono } = req.body;  //instruccion para tomar los datos enviados desde el formulario
+
+    try {
+        const [result] = await db.promise().query(
+            'INSERT INTO users (cedula, nombre, direccion, telefono) VALUES (?, ?, ?, ?)',
+            [cedula, nombre, direccion, telefono]
+        );
+        res.send("Registro Exitoso!!!!!!!");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error al insertar usuario');
+    }
+});
 
 
+// UPDATE USER
 app.put('/update_users', (req, res) => {
     const { idUser, cedula, nombre, direccion, telefono } = req.body;
 
@@ -69,6 +72,7 @@ app.put('/update_users', (req, res) => {
     );
 })
 
+// DELETE USER
 app.delete('/delete_users/:id', (req, res) => {
     // Extraer el id de los parámetros de la solicitud
     const { id } = req.params;
@@ -84,6 +88,7 @@ app.delete('/delete_users/:id', (req, res) => {
     });
 });
 
+// GET USER
 app.get('/get_users', (req, res) => {
     //query para seleccionar los datos a la base de datos
     db.query('select * from users ',
@@ -97,12 +102,12 @@ app.get('/get_users', (req, res) => {
     );
 })
 
-/////////////fin users ////////////////////////////////
+// -----    FIN ENDPOINT USERS ----------------------------------------------------
 
 
-///////////////////////Autor
+// ------- INICIO ENDPOINT AUTOR ---------------------------------------------------
 
-// Agregar un autor
+// ADD AUTOR 
 app.post('/add_autores', (req, res) => {
     const nombreAutor = req.body.nombreAutor;
     const apellidoAutor = req.body.apellidoAutor;
@@ -117,6 +122,7 @@ app.post('/add_autores', (req, res) => {
     });
 });
 
+// GET AUTOR
 app.get('/get_autores', (req, res) => {
     //query para seleccionar los datos a la base de datos
     db.query('select * from autor ',
@@ -129,7 +135,7 @@ app.get('/get_autores', (req, res) => {
         }
     );
 })
-// Endpoint para actualizar un autor
+// ACTUALIZAR AUTOR
 app.put('/update_autor', (req, res) => {
     const { autorId, nombreAutor, apellidoAutor } = req.body;
     db.query('UPDATE autor SET nombreAutor = ?, apellidoAutor = ? WHERE autorId = ?', [nombreAutor, apellidoAutor, autorId],
@@ -146,7 +152,7 @@ app.put('/update_autor', (req, res) => {
     );
 });
 
-// Endpoint para eliminar un autor
+// ELIMINAR AUTOR
 app.delete('/delete_autor/:autorId', (req, res) => {
     const autorId = req.params.autorId;
 
@@ -166,11 +172,12 @@ app.delete('/delete_autor/:autorId', (req, res) => {
     );
 });
 
-///////////////////////fin Autor
+// -----    FIN ENDPOINT AUTOR ----------------------------------------------------
 
 
-////EDITORIALES      
-// Endpoint get editorial
+// -----    FIN ENDPOINT EDITORIAL -------------------------------------------------
+
+// GET EDITORIAL
 app.get('/get_editoriales', (req, res) => {
     //query para seleccionar los datos a la base de datos
     db.query('select * from editorial ',
@@ -185,7 +192,7 @@ app.get('/get_editoriales', (req, res) => {
 })
 
 
-// Endpoint ADD editorial
+// ADD EDITORIAL
 app.post('/add_editoriales', (req, res) => {
     // Extract data from request body
     const nombreEditorial = req.body.nombreEditorial;
@@ -208,7 +215,7 @@ app.post('/add_editoriales', (req, res) => {
     });
 });
 
-// Endpoint para actualizar un autor
+// ACTUALIZAR EDITORIAL
 app.put('/update_editoriales', (req, res) => {
     const { editorialId, nombreEditorial, direccionEditorial, telefonoEditorial } = req.body;
 
@@ -227,7 +234,7 @@ app.put('/update_editoriales', (req, res) => {
     );
 });
 
-// Endpoint para eliminar un editorial
+// ELIMINAR EDITORIAL
 app.delete('/delete_editoriales/:editorialId', (req, res) => {
     // Extraer el id de los parámetros de la solicitud
     const { editorialId } = req.params;
@@ -244,8 +251,9 @@ app.delete('/delete_editoriales/:editorialId', (req, res) => {
 });
 
 
-// -----------  LIBROS ----------------
-// Endpoint para obtener libros
+// -----    FIN ENDPOINT LIBROS ----------------------------------------------------
+
+// ADD LIBROS
 app.get('/get_libros', (req, res) => {
     //query para seleccionar los datos a la base de datos
     db.query(`SELECT l.libroId, l.nombreLibro, l.editorialId, l.autorId, l.cantidad, l.fechaCreacion, l.observacion,
@@ -266,6 +274,7 @@ app.get('/get_libros', (req, res) => {
     );
 })
 
+// GET LIBROS AUTORES
 app.get('/get_libros_autores', (req, res) => {
     //query para seleccionar los datos a la base de datos
     db.query(`SELECT * from autor`,
@@ -279,6 +288,7 @@ app.get('/get_libros_autores', (req, res) => {
     );
 })
 
+// GET LIBRO EDITORIALES
 app.get('/get_libros_editoriales', (req, res) => {
     //query para seleccionar los datos a la base de datos
     db.query(`SELECT * from editorial`,
@@ -294,7 +304,7 @@ app.get('/get_libros_editoriales', (req, res) => {
 
 
 
-// Endpoint ADD libro
+// ADD LIBRO
 app.post('/add_libro', (req, res) => {
     const { nombrelibro, nombreeditorial, nombreautor, cantidad, fecha } = req.body;
 
@@ -320,17 +330,16 @@ app.post('/add_libro', (req, res) => {
     );
 });
 
-// Endpoint para actualizar un libro
+// UPDATE LIBRO
 app.put('/update_libro', (req, res) => {
-   
-    const { libroid, nombrelibro, editorialid, autorid, cantidad, fecha, observacion} = req.body;
 
-    if (!libroid || !nombrelibro || !cantidad || !fecha ) {
+    const { libroid, nombrelibro, editorialid, autorid, cantidad, fecha, observacion } = req.body;
+
+    if (!libroid || !nombrelibro || !cantidad || !fecha) {
         return res.status(400).send('Todos los campos son requeridos.');
     }
-
     db.query(
-        'UPDATE libro SET nombreLibro = ?, cantidad = ?, fechaCreacion = ? ,observacion = ?  WHERE libroId = ?' ,
+        'UPDATE libro SET nombreLibro = ?, cantidad = ?, fechaCreacion = ? ,observacion = ?  WHERE libroId = ?',
         [nombrelibro, cantidad, fecha, observacion, libroid],
         (err, result) => {
             if (err) {
@@ -346,8 +355,8 @@ app.put('/update_libro', (req, res) => {
 });
 
 
-// Endpoint para eliminar un libro
-app.delete('/delete_libros/:libroId', (req, res) => {
+// ELIMINAR LIBRO 
+ app.delete('/delete_libros/:libroId', (req, res) => {
     // Extraer el id de los parámetros de la solicitud
     const { libroId } = req.params;
 
@@ -363,9 +372,12 @@ app.delete('/delete_libros/:libroId', (req, res) => {
 });
 
 
-///----------------PRESTAMOS
+// -----    FIN ENDPOINT LIBROS ----------------------------------------------------
 
-// Endpoint get editorial
+
+// -----    INICIO ENDPOINT PRESTAMOS ----------------------------------------------------
+
+// GET PRESTAMO
 app.get('/get_prestamos', (req, res) => {
     //query para seleccionar los datos a la base de datos
     db.query(`SELECT p.prestamoId, p.usuarioId, p.libroId, p.estado, p.fechaFin, p.fechaCreacion, u.nombre as nombusu, l.nombrelibro as nomblibro FROM prestamo p INNER JOIN users u ON p.usuarioId = u.usuarioId INNER JOIN libro l ON p.libroId=l.libroId ORDER BY prestamoId ASC;
@@ -380,7 +392,7 @@ app.get('/get_prestamos', (req, res) => {
     );
 })
 
-// Endpoint ADD prestamo
+// ADD PRESTAMO
 app.post('/add_prestamo', (req, res) => {
     const { usuario, libro, estado, fechaprestamo, fechadevolucion } = req.body;
 
@@ -391,7 +403,6 @@ app.post('/add_prestamo', (req, res) => {
         fechaprestamo,
         fechadevolucion
     });
-
     db.query(`INSERT INTO prestamo (usuarioId, libroId, estado, fechaFin,fechaCreacion) 
        VALUES (?, ?, ?, ?, ?)`,
         [usuario, libro, estado, fechaprestamo, fechadevolucion],
@@ -406,17 +417,17 @@ app.post('/add_prestamo', (req, res) => {
 });
 
 
-// Endpoint para actualizar un prestamo
+
+// ACTUALIZAR PRESTAMO
 app.put('/update_prestamo', (req, res) => {
-    const { Prestamoid, usuario, libro, estado, FechaPrestamo, FechaDevolucion} = req.body;
+    const { Prestamoid, usuario, libro, estado, FechaPrestamo, FechaDevolucion } = req.body;
 
-    if (!Prestamoid ) {
+    if (!Prestamoid) {
         return res.status(400).send('El ID de Prestamo no Viajo al backend');
-    }
-
+    } 
     db.query(
         'UPDATE prestamo SET estado = ?,fechaCreacion = ?, fechaFin = ? WHERE prestamoId = ?',
-        [estado,FechaPrestamo, FechaDevolucion, Prestamoid],
+        [estado, FechaPrestamo, FechaDevolucion, Prestamoid],
         (err, result) => {
             if (err) {
                 console.error('Error al actualizar el Prestamo:', err);
@@ -430,7 +441,7 @@ app.put('/update_prestamo', (req, res) => {
     );
 });
 
-// Endpoint para eliminar un prestamo
+// DELETE PRESTAMO
 app.delete('/delete_prestamo/:prestamoid', (req, res) => {
     // Extraer el id de los parámetros de la solicitud
     const { prestamoid } = req.params;
@@ -446,6 +457,7 @@ app.delete('/delete_prestamo/:prestamoid', (req, res) => {
     });
 });
 
+// -----     ENDPOINT SERVER ----------------------------------------------------
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
