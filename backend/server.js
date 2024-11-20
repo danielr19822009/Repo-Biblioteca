@@ -48,6 +48,7 @@ app.post('/add_users', async (req, res) => {
             [cedula, nombre, direccion, telefono]
         );
         res.send("Registro Exitoso!!!!!!!");
+        
     } catch (err) {
         console.error(err);
         res.status(500).send('Error al insertar usuario');
