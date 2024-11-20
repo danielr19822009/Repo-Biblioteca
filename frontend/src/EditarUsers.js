@@ -20,7 +20,7 @@ const Editar_User = () => {
 
     // Function to get users
     const getUsers = () => {
-        Axios.get("https://repo-biblioteca-backend.vercel.app/get_users")
+        Axios.get("https://biblioteca-backend-nine.vercel.app/get_users")
             .then((response) => {
                 setUsersList(response.data);
             })
@@ -42,7 +42,7 @@ const Editar_User = () => {
     // Function to update user
     const updateUser = () => {
         if (usuarioid) {
-            Axios.put("https://repo-biblioteca-backend.vercel.app/update_users", {
+            Axios.put("https://biblioteca-backend-nine.vercel.app/update_users", {
 
                 idUser: usuarioid,
                 cedula,
@@ -101,7 +101,7 @@ const Editar_User = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                Axios.delete(`https://repo-biblioteca-backend.vercel.app/delete_users/${id}`)
+                Axios.delete(`https://biblioteca-backend-nine.vercel.app/delete_users/${id}`)
                 .then(() => {
                         Swal.fire({
                             title: "Deleted!",

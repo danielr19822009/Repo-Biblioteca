@@ -26,7 +26,7 @@ const Add_Autor = () => {
             });
         } else {
             // Realiza una solicitud POST para agregar el autor
-            Axios.post("https://repo-biblioteca-backend.vercel.app/add_autores", {
+            Axios.post("https://biblioteca-backend-nine.vercel.app/add_autores", {
                 nombreAutor,
                 apellidoAutor,
             })
@@ -53,7 +53,7 @@ const Add_Autor = () => {
 
     // Función para obtener la lista de autores
     const getAutores = () => {
-        Axios.get("https://repo-biblioteca-backend.vercel.app/get_autores")
+        Axios.get("https://biblioteca-backend-nine.vercel.app/get_autores")
             .then((response) => {
                 setAutores(response.data); // Actualiza el estado con los datos obtenidos
             })
