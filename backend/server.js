@@ -12,18 +12,18 @@ const cors = require('cors');
 app.use(cors()); // Habilita CORS
 app.use(express.json()); // Parseo de JSON en las peticiones
 
-// Configuración de la conexión a la base de datos
+// Configuración de la conexión a la base de dato
 const db = mysql.createConnection({
-  host: 'db-biblioteca.cdwk8g26ozev.us-east-1.rds.amazonaws.com',    // Puede ser 'localhost' o un nombre de dominio si se usa remoto
-  user: 'admin',         // Usuario de la base de datos
-  password: 'library123*',         // Contraseña de la base de datos
-  database: 'bd_librarysm' // Nombre de la base de datos
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 
-  // Para producción, descomentar y usar variables de entorno:
-  // host: process.env.DB_HOST,
-  // user: process.env.DB_USER,
-  // password: process.env.DB_PASSWORD,
-  // database: process.env.DB_NAME
+    // //   host: 'db-biblioteca.cdwk8g26ozev.us-east-1.rds.amazonaws.com',    // Puede ser 'localhost' o un nombre de dominio si se usa remoto
+// //   user: 'admin',         // Usuario de la base de datos
+// //   password: 'library123*',         // Contraseña de la base de datos
+// //   database: 'bd_librarysm' // Nombre de la base de datos
+
 });
 
 // Conexión a la base de datos MySQL
